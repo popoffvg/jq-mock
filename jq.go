@@ -7,8 +7,8 @@ import (
 )
 
 func ExecForPath(path, expression string) (string, error) {
-	const cmd = "cat %s | jq %s"
-	out, err := exec.Command("bash", "-c", fmt.Sprintf(cmd, path, expression)).Output()
+	var cmd = fmt.Sprintf("cat %s | jq %s", path, expression)
+	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
 		var execErr *exec.ExitError
 		if errors.As(err, &execErr) {
